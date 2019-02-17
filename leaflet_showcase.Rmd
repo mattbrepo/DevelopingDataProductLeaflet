@@ -1,0 +1,39 @@
+---
+title: "Leaflet showcase"
+author: "Matteo Bertola"
+date: "17 febbraio 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Leaflet for Santa Clause
+
+```{r}
+library(leaflet)
+
+myIcon <- makeIcon(
+  iconUrl = "https://raw.githubusercontent.com/mattbrepo/DevelopingDataProductLeaflet/master/image.png",
+  iconWidth = 31*215/230, iconHeight = 31,
+  iconAnchorX = 31*215/230/2, iconAnchorY = 16
+)
+
+mySites <- c(
+  "<a href='https://santaclausvillage.info/'>Santa Claus Village</a>"
+)
+
+myLatLong <- data.frame(
+  lat = c(66.33119),
+  lng = c(25.531319))
+
+myLL <- leaflet() %>%
+  setView(zoom = 4, lat = myLatLong$lat, lng = myLatLong$lng) %>%
+  addTiles() %>%
+  addMarkers(icon = myIcon, popup = mySites, lat = myLatLong$lat, lng = myLatLong$lng)
+  
+myLL <- addCircles(myLL, weight = 30, radius = 10000, lat = 60.1, lng = 24.9, color = "red")
+myLL <- addLegend(myLL, labels = c("Helsinki","Rovaniemi"), colors = c("red", "green"))
+myLL
+```
